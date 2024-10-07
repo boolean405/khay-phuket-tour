@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const RoleSchema = new Schema({
     name: { type: String, require: true, unique: true },
-    permit: [{ type: Schema.Types.ObjectId, 'ref': 'permit' }],
+    permits: [{ type: Schema.Types.ObjectId, 'ref': 'permit' }],
     created: { type: Date, default: Date.now }
 });
 
