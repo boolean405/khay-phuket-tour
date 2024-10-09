@@ -13,9 +13,11 @@ app.use(express.json());
 // Router Section
 const permitRouter = require('./routes/permit');
 const roleRouter = require('./routes/role');
+const userRouter = require('./routes/user');
 
 app.use('/permits', permitRouter);
 app.use('/roles', roleRouter);
+app.use('/users', userRouter);
 
 // Error Handling
 app.use((err, req, res, next) => {

@@ -2,7 +2,7 @@ const fs = require('fs');
 const Helper = require('../utils/helper');
 const UserDB = require('../models/user');
 
-const migrate = () => {
+const migrate = async () => {
     let data = fs.readFileSync('./migrations/users.json');
     let users = JSON.parse(data);
     users.forEach(async (user) => {
@@ -10,6 +10,10 @@ const migrate = () => {
         let result = await new UserDB(user).save();
         console.log(result);
     })
+}
+
+const rolePermitMigrate = () => {
+    
 }
 
 const backup = async () => {

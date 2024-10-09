@@ -1,24 +1,24 @@
 [
     {
-        "_id": "67044d9c21bd5e61591c7829",
+        "_id": "6704610f58e8cea208317c8d",
         "name": "Owner",
         "email": "owner@gmail.com",
         "phone": "1234567890",
-        "password": "$2a$10$yuX3jNbI1/qdTK00yJs9xug9rOOn4fUMkz8aAAblH9yoFxZ4kKaz2",
+        "password": "$2a$10$4DBfh8zETWUvjqNLPpQMA.YUBytfjCvkRNvrSuhFL7Kr25BUiTETy",
         "roles": [],
         "permits": [],
-        "created": "2024-10-07T21:07:40.676Z",
+        "created": "2024-10-07T22:30:39.639Z",
         "__v": 0
     },
     {
-        "_id": "67044d9c21bd5e61591c782a",
+        "_id": "6704610f58e8cea208317c8e",
         "name": "Admin",
         "email": "admin@gmail.com",
         "phone": "0987654321",
-        "password": "$2a$10$N7yPiboJPe8fcGTwCzh4fOmW6oglwAMFeWQHmQZEVWV76j56eBtSW",
+        "password": "$2a$10$NM.gOl8n9cnszYsHUH6AOeCgGRHg0EnR/kaTBpNOmOvlkJjjpofFm",
         "roles": [],
         "permits": [],
-        "created": "2024-10-07T21:07:40.795Z",
+        "created": "2024-10-07T22:30:39.757Z",
         "__v": 0
     }
 ]

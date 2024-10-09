@@ -18,13 +18,28 @@ module.exports = {
             name: Joi.string().required()
         }),
         addPermit: Joi.object({
-            roleId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
-            permitId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+            role_id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+            permit_id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
         }),
         removePermit: Joi.object({
-            roleId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
-            permitId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+            role_id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+            permit_id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
         })
+    },
+
+    UserSchema: {
+        register: Joi.object({
+            name: Joi.string().min(4).required(),
+            email: Joi.string().email().required(),
+            phone: Joi.string().min(8).max(12).required(),
+            password: Joi.string().min(8).max(16).required(),
+            re_password: Joi.ref('password'),
+        }),
+        login: Joi.object({
+            phone: Joi.string().min(8).max(12).required(),
+            password: Joi.string().min(8).max(16).required(),
+        })
+
     },
 
     AllSchema: {

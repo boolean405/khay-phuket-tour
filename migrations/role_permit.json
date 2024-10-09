@@ -1,0 +1,13 @@
+{
+    "roles": [
+        {
+            "name": "Owner"
+        },
+        {
+            "name": "Manager"
+        },
+        {
+            "name": "Admin"
+        }
+    ]
+}

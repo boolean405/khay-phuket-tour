@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const Redis = require('./redis');
 module.exports = {
     validateBody: (schema) => {
         return (req, res, next) => {
@@ -22,6 +24,25 @@ module.exports = {
             } else {
                 next();
             }
+        }
+    },
+
+    validateToken: () => {
+        return async (req, res, next) => {
+            let token = req.headers.authorization.split(' ')[1];
+            let decoded = jwt.verify(token, process.env.SECRET_KEY);
+            if (decoded) {
+                let user = await Redis.get(decoded._id);
+                if (user) {
+                    req.user = user;
+                    next();
+                } else {
+                    next(new Error('Tokenization Error'))
+                }
+            } else {
+                next(new Error('Tokenization Error'))
+            }
+
         }
     }
 

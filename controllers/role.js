@@ -53,10 +53,10 @@ const drop = async (req, res, next) => {
 }
 
 const addPermit = async (req, res, next) => {
-    let dbRole = await DB.findById(req.body.roleId);
-    let dbPermit = await PermitDB.findById(req.body.permitId);
+    let dbRole = await DB.findById(req.body.role_id);
+    let dbPermit = await PermitDB.findById(req.body.permit_id);
     if (dbRole) {
-        let dbExistPermit = dbRole.permits.find(id => id == req.body.permitId);
+        let dbExistPermit = dbRole.permits.find(id => id == req.body.permit_id);
         if (dbExistPermit) {
             next(new Error(`${dbPermit.name} is already in ${dbRole.name} Role`));
         } else {
@@ -76,10 +76,10 @@ const addPermit = async (req, res, next) => {
 }
 
 const removePermit = async (req, res, next) => {
-    let dbRole = await DB.findById(req.body.roleId);
-    let dbPermit = await PermitDB.findById(req.body.permitId);
+    let dbRole = await DB.findById(req.body.role_id);
+    let dbPermit = await PermitDB.findById(req.body.permit_id);
     if (dbRole) {
-        let dbExistPermit = dbRole.permits.find(id => id == req.body.permitId);
+        let dbExistPermit = dbRole.permits.find(id => id == req.body.permit_id);
         if (dbExistPermit) {
             await DB.findByIdAndUpdate(dbRole._id, { $pull: { permits: dbPermit._id } });
             let result = await DB.findById(dbRole._id).populate('permits');
