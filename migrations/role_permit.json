@@ -1,13 +1,14 @@
 {
-    "roles": [
-        {
-            "name": "Owner"
-        },
-        {
-            "name": "Manager"
-        },
-        {
-            "name": "Admin"
-        }
-    ]
+  "roles": [
+    { "name": "Owner" },
+    { "name": "Manager" },
+    { "name": "Admin" },
+    { "name": "Member" }
+  ],
+
+  "permits": [
+    { "name": "Can View" },
+    { "name": "Can Edit" },
+    { "name": "Can Delete" }
+  ]
 }

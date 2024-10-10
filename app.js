@@ -29,10 +29,20 @@ app.use((err, req, res, next) => {
 // Migration Default Data
 const defaultData = async () => {
     let migrator = require('./migrations/migrator');
-    // await migrator.migrate();
+    await migrator.migrate();
+    await timer(1);
+    await migrator.rolePermitMigrate();
+    await timer(1);
+    await migrator.addRoleToUser('Owner', 'Owner');
+    await timer(1);
     await migrator.backup();
 }
 
+const timer = async (second) => {
+    await new Promise(resolve => setTimeout(resolve, second * 1000));
+}
+
+// Call all Default Data
 // defaultData();
 
 // Run Server

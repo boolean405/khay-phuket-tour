@@ -1,0 +1,30 @@
+[
+    {
+        "_id": "67084a8bbaf391419a7fa089",
+        "name": "Manager",
+        "permits": [],
+        "created": "2024-10-10T21:43:39.854Z",
+        "__v": 0
+    },
+    {
+        "_id": "67084a8bbaf391419a7fa084",
+        "name": "Member",
+        "permits": [],
+        "created": "2024-10-10T21:43:39.844Z",
+        "__v": 0
+    },
+    {
+        "_id": "67084a8bbaf391419a7fa07e",
+        "name": "Owner",
+        "permits": [],
+        "created": "2024-10-10T21:43:39.836Z",
+        "__v": 0
+    },
+    {
+        "_id": "67084a8bbaf391419a7fa082",
+        "name": "Admin",
+        "permits": [],
+        "created": "2024-10-10T21:43:39.842Z",
+        "__v": 0
+    }
+]
