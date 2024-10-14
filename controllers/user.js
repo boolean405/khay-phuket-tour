@@ -1,9 +1,12 @@
 const DB = require('../models/user');
+const RoleDB = require('../models/role');
+const PermitDB = require('../models/permit');
 const Helper = require('../utils/helper');
+const Redis = require('../utils/redis');
 
 const all = async (req, res, next) => {
     let dbUser = await DB.find().populate('roles permits');
-    Helper.fMsg(res, 'All User', dbUser);
+    Helper.fMsg(res, 'All Users', dbUser);
 }
 const register = async (req, res, next) => {
     let dbEmailUser = await DB.findOne({ email: req.body.email });
@@ -30,7 +33,7 @@ const login = async (req, res, next) => {
             let user = dbPhoneUser.toObject();
             delete user.password;
             user.token = Helper.makeToken(user);
-            Helper.set(user._id, user);
+            Redis.set(user._id, user);
             Helper.fMsg(res, 'Login Success', user);
         } else {
             next(new Error('Incorrect Password'));
@@ -40,8 +43,84 @@ const login = async (req, res, next) => {
     }
 }
 
+const addRole = async (req, res, next) => {
+    let dbUser = await DB.findById(req.body.user_id);
+    let dbRole = await RoleDB.findById(req.body.role_id);
+    if (dbUser) {
+        if (dbRole) {
+            let existRole = dbUser.roles.find(rid => rid.equals(dbRole._id));
+            if (existRole) {
+                next(new Error(`${dbRole.name} Role is already exist in ${dbUser.name} User`));
+            } else {
+                await DB.findByIdAndUpdate(dbUser._id, { $push: { roles: dbRole._id } });
+                let user = await DB.findById(dbUser._id).populate('roles permits');
+                Helper.fMsg(res, `${dbRole.name} Role added to ${user.name} User`, user);
+            }
+        } else {
+            next(new Error('No role found with id'));
+        }
+    } else {
+        next(new Error('No user found with that id'));
+    }
+}
+
+const removeRole = async (req, res, next) => {
+    let dbUser = await DB.findById(req.body.user_id).populate('roles');
+    if (dbUser) {
+        let existRole = dbUser.roles.find(rid => rid.equals(req.body.role_id));
+        if (existRole) {
+            await DB.findByIdAndUpdate(dbUser._id, { $pull: { roles: req.body.role_id } });
+            Helper.fMsg(res, `${existRole.name} Role removed from ${dbUser.name} User`);
+        } else {
+            next(new Error(`Role doesn't exist in ${dbUser.name} User`));
+        }
+    } else {
+        next(new Error('No user found with that id'));
+    }
+}
+
+const addPermit = async (req, res, next) => {
+    let dbUser = await DB.findById(req.body.user_id);
+    let dbPermit = await PermitDB.findById(req.body.permit_id);
+    if (dbUser) {
+        if (dbPermit) {
+            let existPermit = dbUser.permits.find(rid => rid.equals(dbPermit._id));
+            if (existPermit) {
+                next(new Error(`${dbPermit.name} Permit is already exist in ${dbUser.name} User`));
+            } else {
+                await DB.findByIdAndUpdate(dbUser._id, { $push: { permits: dbPermit._id } });
+                let user = await DB.findById(dbUser._id).populate('roles permits');
+                Helper.fMsg(res, `${dbPermit.name} Permit added to ${user.name} User`, user);
+            }
+        } else {
+            next(new Error('No permit found with id'));
+        }
+    } else {
+        next(new Error('No user found with that id'));
+    }
+}
+
+const removePermit = async (req, res, next) => {
+    let dbUser = await DB.findById(req.body.user_id).populate('permits');
+    if (dbUser) {
+        let existPermit = dbUser.permits.find(rid => rid.equals(req.body.permit_id));
+        if (existPermit) {
+            await DB.findByIdAndUpdate(dbUser._id, { $pull: { permits: req.body.permit_id } });
+            Helper.fMsg(res, `${existPermit.name} Permit removed from ${dbUser.name} User`);
+        } else {
+            next(new Error(`Permit doesn't exist in ${dbUser.name} User`));
+        }
+    } else {
+        next(new Error('No user found with that id'));
+    }
+}
+
 module.exports = {
     all,
     register,
-    login
+    login,
+    addRole,
+    removeRole,
+    addPermit,
+    removePermit
 }

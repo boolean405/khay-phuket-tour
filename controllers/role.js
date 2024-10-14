@@ -4,7 +4,7 @@ const Helper = require('../utils/helper');
 
 const all = async (req, res, next) => {
     let dbRole = await DB.find().populate('permits');
-    Helper.fMsg(res, 'All Role', dbRole);
+    Helper.fMsg(res, 'All Roles', dbRole);
 }
 
 const get = async (req, res, next) => {
@@ -60,7 +60,7 @@ const addPermit = async (req, res, next) => {
         if (dbExistPermit) {
             next(new Error(`${dbPermit.name} is already in ${dbRole.name} Role`));
         } else {
-            await DB.findByIdAndUpdate(dbRole._id, { $addToSet: { permits: dbPermit._id } });
+            await DB.findByIdAndUpdate(dbRole._id, { $push: { permits: dbPermit._id } });
             let result = await DB.findById(dbRole._id).populate('permits');
             Helper.fMsg(res, `${dbPermit.name} Permission added to ${dbRole.name} Role`, result);
         }

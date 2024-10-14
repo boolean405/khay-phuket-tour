@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const PermitSchema = new Schema({
     name: { type: String, require: true, unique: true },
-    created: { type: Date, default: Date.now }
+    created_at: { type: Date, default: Date.now }
 });
 
 const Permit = mongoose.model('permit', PermitSchema);

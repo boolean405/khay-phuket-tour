@@ -3,7 +3,7 @@ const Helper = require('../utils/helper');
 
 const all = async (req, res, next) => {
     let dbPermit = await DB.find();
-    Helper.fMsg(res, 'All Permit', dbPermit);
+    Helper.fMsg(res, 'All Permits', dbPermit);
 }
 
 const get = async (req, res, next) => {
