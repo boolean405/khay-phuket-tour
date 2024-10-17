@@ -18,6 +18,9 @@ const roleRouter = require('./routes/role');
 const userRouter = require('./routes/user');
 const categoryRouter = require('./routes/category');
 const subCategoryRouter = require('./routes/sub_category');
+const childCategoryRouter = require('./routes/child_category');
+const tagRouter = require('./routes/tag');
+const deliveryRouter = require('./routes/delivery');
 
 // For validation
 const { validateToken, validateRole } = require('./utils/validator');
@@ -27,6 +30,9 @@ app.use('/roles', validateToken(), validateRole('Owner'), roleRouter);
 app.use('/users', userRouter);
 app.use('/categories', categoryRouter);
 app.use('/subcategories', subCategoryRouter);
+app.use('/childcategories', childCategoryRouter);
+app.use('/tags', tagRouter);
+app.use('/deliveries', deliveryRouter);
 
 // Error Handling
 app.use((err, req, res, next) => {

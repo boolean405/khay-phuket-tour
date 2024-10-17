@@ -2,7 +2,13 @@ const DB = require('../models/category');
 const Helper = require('../utils/helper');
 
 const all = async (req, res, next) => {
-    let result = await DB.find().populate('sub_categories');
+    let result = await DB.find().populate({
+        path: 'sub_categories',
+        populate: {
+            path: 'child_categories',
+            model: 'child_category'
+        }
+    });
     Helper.fMsg(res, 'All Categories', result);
 }
 
@@ -30,7 +36,7 @@ const patch = async (req, res, next) => {
     if (dbCat) {
         let existCat = await DB.findOne({ name: req.body.name });
         if (existCat) {
-            next(new Error('Category is already in use'));
+            next(new Error('Category is already exist'));
         } else {
             await DB.findByIdAndUpdate(dbCat._id, req.body);
             let result = await DB.findById(req.params.id);

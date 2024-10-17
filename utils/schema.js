@@ -60,8 +60,50 @@ module.exports = {
     CategorySchema: {
         add: Joi.object({
             name: Joi.string().required()
-            // file: Joi.any().required()
+        }),
+        patch: Joi.object({
+            name: Joi.string().required()
         })
+    },
+    SubCategorySchema: {
+        add: Joi.object({
+            parent_category: Joi.string().required(),
+            name: Joi.string().required()
+        }),
+        patch: Joi.object({
+            name: Joi.string().required()
+        })
+    },
+    ChildCategorySchema: {
+        add: Joi.object({
+            sub_category: Joi.string().required(),
+            name: Joi.string().required()
+        }),
+        patch: Joi.object({
+            name: Joi.string().required()
+        })
+    },
+    TagSchema: {
+        add: Joi.object({
+            name: Joi.string().required()
+        }),
+        patch: Joi.object({
+            name: Joi.string().required()
+        })
+    },
+    DeliverySchema: {
+        add: Joi.object({
+            name: Joi.string().required(),
+            price: Joi.number().required(),
+            duration: Joi.string().required(),
+            remarks: Joi.string()
+        }),
+        patch: Joi.object({
+            name: Joi.string().required(),
+            price: Joi.number().required(),
+            duration: Joi.string().required(),
+            remarks: Joi.string()
+        }),
     },
 
     AllSchema: {

@@ -131,5 +131,3 @@ dist
 
 
 package-lock.json
-migrations/backups/*
-uploads/*
